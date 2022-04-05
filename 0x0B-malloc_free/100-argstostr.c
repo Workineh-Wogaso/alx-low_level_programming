@@ -1,57 +1,86 @@
 #include "main.h"
 
-/**
-*len - returns length of str
-*@str: string counted
-*Return: returns the length
-*/
-int len(char *str)
-{
-		int len = 0;
+char *_strcat(char *dest, char *src);
 
-		if (str != NULL)
+/**
+ * argstostr - concatenates all the arguments
+ * @av: the content
+ * @ac: the size of the content
+ *
+ * Return: a pointer to a new string
+ */
+char *argstostr(int ac, char **av)
+{
+	char *new, *salt;
+	int i, j, k;
+
+	if (ac == 0 || av == NULL)
+	{
+		return (NULL);
+	}
+	else
+	{
+		for (i = 0, k = 0 ; i < ac ; i++, k++)
 		{
-			while (str[len])
-				len++;
+			for (j = 0 ; av[i][j] != '\0' ; j++, k++)
+			{
+				;
+			}
 		}
-	return (len);
+		new = malloc(sizeof(char) * (k + 1));
+		salt = "\n";
+		for (i = 0 ; i < ac ; i++)
+		{
+			new = _strcat(new, av[i]);
+			if (new == NULL)
+			{
+				return (NULL);
+			}
+			if (i + 1 < ac)
+			{
+				new = _strcat(new, salt);
+				if (new == NULL)
+				{
+					return (NULL);
+				}
+			}
+		}
+
+	}
+	new = _strcat(new, salt);
+	if (new == NULL)
+	{
+		return (NULL);
+	}
+	return (new);
 }
 
 /**
-* argstostr - a function that concatenates all the arguments of your program
-*@ac: count of args passed to the function
-*@av:array of arguments
-*
-*Return: pointer to the new string
-*/
-
-char *argstostr(int ac, char **av)
+ * _strcat - concatenates two strings
+ * @dest: input parameter string
+ * @src: input parameter string
+ *
+ * Return: dest
+ */
+char *_strcat(char *dest, char *src)
 {
-		char *new_string = NULL;
-		int k = 0, i = ac, j, sum = 0, temp = 0;
+	int a;
+	int b;
 
-		if (ac == 0 || av == NULL)
-			return (NULL);
+	a = 0;
 
-		while (ac--)
-			sum += (len(av[ac]) + 1);
-		new_string = (char *) malloc(sum + 1);
+	while (dest[a] != 0)
+	{
+		a++;
+	}
 
-		if (new_string != NULL)
-		{
-			while (k < i)
-			{
-				for (j = 0; av[k][j] != '\0'; j++)
-					new_string[j + temp] = av[k][j];
-				new_string[temp + j] = '\n';
-				temp += (j + 1);
-				k++;
-			}
-			new_string[temp] = '\0';
-		}
-		else
-		{
-			return (NULL);
-		}
-		return (new_string);
+	b = 0;
+
+	while (src[b] != 0)
+	{
+		dest[a] = src[b];
+		a++;
+		b++;
+	}
+	return (dest);
 }
