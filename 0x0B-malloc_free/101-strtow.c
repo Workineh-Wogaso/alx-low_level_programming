@@ -55,9 +55,9 @@ int num_words(char *str)
  *Return: pointer to the array of splitted words
  */
 
-OBOBOBOBOBOBOBOBOBchar **strtow(char *str)
+char **strtow(char *str)
 {
-OBOBOB	char **split;
+	char **split;
 	int i, j = 0, temp = 0, size = 0, words = num_words(str);
 
 	if (words == 0)
